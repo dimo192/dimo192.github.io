@@ -4,7 +4,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
   <title>Galactic Dynamo(Z)</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
     body {
       background-color: black;
@@ -12,27 +15,43 @@
       text-align: center;
       font-size: 16px;
     }
+    .navbar {
+      overflow: hidden;
+      background-color: #333;
+    }
+    .navbar a {
+      float: left;
+      display: block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+    .navbar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
   </style>
 </head>
 
 <body>
-  <div class="w3-bar w3-black">
-    <a href="Website/task1.html" class="w3-bar-item w3-button">Task 1</a>
-    <a href="Website/task1_code.html" class="w3-bar-item w3-button">Task 1 code</a>
-    <a href="Website/task2.html" class="w3-bar-item w3-button">Task 2</a>
-    <a href="Website/task2_code.html" class="w3-bar-item w3-button">Task 2 code</a>
+  <div class="navbar">
+    <a href="Website/task1.html">Task 1</a>
+    <a href="Website/task1_code.html">Task 1 code</a>
+    <a href="Website/task2.html">Task 2</a>
+    <a href="Website/task2_code.html">Task 2 code</a>
   </div>
   <div><h1>Simulation of galactic dynamo under slab approximation</h1></div>
   <hr>
   <p>In this assignment, we consider the mean field induction equation given by:</p>
-  <p style="font-size: 18px;">$$\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \nabla \times (\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}} + \mathcal{E} - \eta \nabla \times \overline{\boldsymbol{B}})$$</p>
-  <p>where $\overline{\boldsymbol{B}}$, $\overline{\boldsymbol{V}}$, $\mathcal{E}$ ($\equiv \overline{\boldsymbol{v} \times \boldsymbol{b}}$), and $\eta$ represent the mean magnetic field, mean velocity field, mean electromotive force, and magnetic diffusivity, respectively.</p>
-  <p>If we assume $\mathcal{E} = \alpha \overline{\boldsymbol{B}} - \eta_{\mathrm{t}} \boldsymbol{\nabla} \times \overline{\boldsymbol{B}}$ and ignore the terms $(\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}})$ and $\alpha \overline{\boldsymbol{B}}$, we get:</p>
-  <p style="font-size: 18px;">$$\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = -\nabla \times \left( \eta_T (\nabla \times \overline{\boldsymbol{B}})\right)$$</p>
-  <p>If $\eta_T$ is assumed to be constant in time, the right-hand side simplifies to $\nabla \times (\nabla \times \overline{\mathbf{B}})$. By applying the vector theorem, we get:</p>
-  <p style="font-size: 18px;">$$\nabla \times (\nabla \times \overline{\mathbf{B}}) = \nabla (\nabla \cdot \overline{\mathbf{B}}) - \nabla^2 \overline{\mathbf{B}}$$</p>
+  <p style="font-size: 18px;">\(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \nabla \times (\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}} + \mathcal{E} - \eta \nabla \times \overline{\boldsymbol{B}})\)</p>
+  <p>where \(\overline{\boldsymbol{B}}\), \(\overline{\boldsymbol{V}}\), \(\mathcal{E}\) (\(\equiv \overline{\boldsymbol{v} \times \boldsymbol{b}}\)), and \(\eta\) represent the mean magnetic field, mean velocity field, mean electromotive force, and magnetic diffusivity, respectively.</p>
+  <p>If we assume \(\mathcal{E} = \alpha \overline{\boldsymbol{B}} - \eta_{\mathrm{t}} \boldsymbol{\nabla} \times \overline{\boldsymbol{B}}\) and ignore the terms \((\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}})\) and \(\alpha \overline{\boldsymbol{B}}\), we get:</p>
+  <p style="font-size: 18px;">\(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = -\nabla \times \left( \eta_T (\nabla \times \overline{\boldsymbol{B}})\right)\)</p>
+  <p>If \(\eta_T\) is assumed to be constant in time, the right-hand side simplifies to \(\nabla \times (\nabla \times \overline{\mathbf{B}})\). By applying the vector theorem, we get:</p>
+  <p style="font-size: 18px;">\(\nabla \times (\nabla \times \overline{\mathbf{B}}) = \nabla (\nabla \cdot \overline{\mathbf{B}}) - \nabla^2 \overline{\mathbf{B}}\)</p>
   <p>Therefore, the final expression becomes:</p>
-  <p style="font-size: 18px;">$$\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \eta_T \nabla^2 \overline{\mathbf{B}}$$</p>
+  <p style="font-size: 18px;">\(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \eta_T \nabla^2 \overline{\mathbf{B}}\)</p>
   <p>This is the diffusion equation and can be solved using a variety of methods. The Crank-Nicolson method is implemented in this project.</p>
 </body>
 
