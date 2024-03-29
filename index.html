@@ -12,16 +12,20 @@
     body {
       background-color: black;
       color: white;
-      text-align: center;
+      text-align: left;
       font-size: 16px;
+      max-width: 800px; /* Limiting maximum width to 800px */
+      margin: 0 auto; /* Centering the content horizontally */
+      padding: 0 20px; /* Adding some padding */
     }
     .navbar {
       overflow: hidden;
-      background-color: #333;
+      background-color: #000;
+      text-align: center;
+      
     }
     .navbar a {
-      float: left;
-      display: block;
+      display: inline-block;
       color: white;
       text-align: center;
       padding: 14px 20px;
@@ -36,23 +40,33 @@
 
 <body>
   <div class="navbar">
+    <a href="index.html">Home</a>
     <a href="Website/task1.html">Task 1</a>
     <a href="Website/task1_code.html">Task 1 code</a>
     <a href="Website/task2.html">Task 2</a>
     <a href="Website/task2_code.html">Task 2 code</a>
   </div>
-  <div><h1>Simulation of galactic dynamo under slab approximation</h1></div>
+  <div><h1 style="text-align: center;">Simulation of galactic dynamo under slab approximation</h1></div>
   <hr>
-  <p>In this assignment, we consider the mean field induction equation given by:</p>
-  <p style="font-size: 18px;">\(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \nabla \times (\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}} + \mathcal{E} - \eta \nabla \times \overline{\boldsymbol{B}})\)</p>
-  <p>where \(\overline{\boldsymbol{B}}\), \(\overline{\boldsymbol{V}}\), \(\mathcal{E}\) (\(\equiv \overline{\boldsymbol{v} \times \boldsymbol{b}}\)), and \(\eta\) represent the mean magnetic field, mean velocity field, mean electromotive force, and magnetic diffusivity, respectively.</p>
-  <p>If we assume \(\mathcal{E} = \alpha \overline{\boldsymbol{B}} - \eta_{\mathrm{t}} \boldsymbol{\nabla} \times \overline{\boldsymbol{B}}\) and ignore the terms \((\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}})\) and \(\alpha \overline{\boldsymbol{B}}\), we get:</p>
-  <p style="font-size: 18px;">\(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = -\nabla \times \left( \eta_T (\nabla \times \overline{\boldsymbol{B}})\right)\)</p>
-  <p>If \(\eta_T\) is assumed to be constant in time, the right-hand side simplifies to \(\nabla \times (\nabla \times \overline{\mathbf{B}})\). By applying the vector theorem, we get:</p>
-  <p style="font-size: 18px;">\(\nabla \times (\nabla \times \overline{\mathbf{B}}) = \nabla (\nabla \cdot \overline{\mathbf{B}}) - \nabla^2 \overline{\mathbf{B}}\)</p>
-  <p>Therefore, the final expression becomes:</p>
-  <p style="font-size: 18px;">\(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \eta_T \nabla^2 \overline{\mathbf{B}}\)</p>
-  <p>This is the diffusion equation and can be solved using a variety of methods. </p>
-</body>
+  <p>Hydrodynamics, or fluid dynamics, provides a powerful framework for studying the motion of fluids in a wide range of contexts, from the flow of water in a pippet to the dynamics of gases in planets. However, when magnetic fields are present, the behavior of the fluid can be significantly altered due to the coupling between fluid motion and electromagnetic forces. This interaction gives rise to many phenomena that cannot be adequately described by hydrodynamics alone.</p>
+  <p>One such phenomenon is the generation and evolution of magnetic fields in astrophysical systems. While hydrodynamics can account for the motion of conducting fluids, it fails to explain how magnetic fields are generated and maintained over cosmic timescales. </p>
 
+  <p>This is where magnetohydrodynamics(MHD) comes into play. By including the effect of electromagnetic forces into fluid dynamics, MHD provides a more information about the dynamics of magnetized fluids. In MHD, the behavior of the fluid is influenced not only by its own motion but also by the presence of magnetic fields</p>
+  <p>The magnetic induction equation can be considered the basis of MHD and is derived from maxwells equation, ohms law and conditions that occur in ideal cases. this equation is</p>
+  <p style="font-size: 18px; text-align: center;">\(\frac{\partial \boldsymbol{B}}{\partial t} = \nabla \times (\boldsymbol{V} \times \boldsymbol{B} - \eta \nabla \times \boldsymbol{B})\)</p>
+  <p>In the above equation</p>
+  <ul>
+    <li>The \(\nabla \times(\boldsymbol{V} \times \boldsymbol{B})\) is the induction term. This causes the magnetic and velocity fields to grow.</li>
+    <li>The \(\nabla \times(\eta \nabla \times \boldsymbol{B})\) is the diffusion term and decays the magnetic field over time.</li>
+
+  </ul>
+
+  <p>Turbulance affects the behavior of the above equation profoundly. The </p>
+  <hr>
+  <h2>References</h2>
+
+  <p>1. Rajihy, Yasen & Mechee, Mohammed. (2017). Generalized RK Integrators for Solving Ordinary Differential Equations: A Survey & Comparison Study. Global Journal of Pure and Applied Mathematics. 13. 2923-2949.</p>
+  <p>2. Computational Physics by Richard Fitzpatric</p>
+  <hr>
+</body>
 </html>
