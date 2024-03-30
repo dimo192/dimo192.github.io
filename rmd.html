@@ -1,66 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GIF Slider with Controls</title>
+  <title>MP4 Player</title>
   <style>
-    #gif-container {
+    #video-container {
       position: relative;
     }
-    #gif {
-      width: 100%;
-      height: auto;
+    #video {
+      width: 300px; /* Adjust width as needed */
     }
-    #controls {
-      margin-top: 10px;
+    .controls {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+    .button {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <div id="gif-container">
-    <img id="gif" src="task 2/magnetic_field_evolution(T=500).gif" alt="GIF" loop>
-    <progress id="progress" value="0" max="100"></progress>
+  <div id="video-container">
+    <video id="video" src="/dimo192.github.io/task 2/magnetic_field_evolution(T=500).mp4" controls></video>
   </div>
-  <div id="controls">
-    <button onclick="togglePlayPause()">Play/Pause</button>
-    <input type="range" min="0" max="100" value="0" id="seekSlider" onchange="seek()">
-    <input type="range" min="0.1" max="4" step="0.1" value="1" id="speedSlider" onchange="changeSpeed()">
-  </div>
-
-  <script>
-    let gif = document.getElementById('gif');
-    let progress = document.getElementById('progress');
-    let seekSlider = document.getElementById('seekSlider');
-    let playing = false;
-    let speed = 1;
-
-    gif.addEventListener('timeupdate', updateProgress);
-
-    function togglePlayPause() {
-      if (playing) {
-        gif.pause();
-      } else {
-        gif.play();
-      }
-      playing = !playing;
-    }
-
-    function changeSpeed() {
-      speed = document.getElementById('speedSlider').value;
-      gif.playbackRate = speed;
-    }
-
-    function updateProgress() {
-      let value = (gif.currentTime / gif.duration) * 100;
-      progress.value = value;
-      seekSlider.value = value;
-    }
-
-    function seek() {
-      let seekTo = gif.duration * (seekSlider.value / 100);
-      gif.currentTime = seekTo;
-    }
-  </script>
 </body>
 </html>
