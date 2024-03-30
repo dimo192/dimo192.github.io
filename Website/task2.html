@@ -1,12 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=https://nbviewer.jupyter.org/github/dimo192/dimo192.github.io/blob/main/task 2/final.ipynb">
-    <title>Redirecting to NBViewer</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <title>&alpha;-&omega; Galactic Dynamo</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      text-align: left;
+      font-size: 16px;
+      max-width: 1000px; 
+      margin: 0 auto; 
+      padding: 0 20px;
+    }
+    .navbar {
+      overflow: hidden;
+      background-color: #000;
+      text-align: center;
+      
+    }
+    .navbar a {
+      display: inline-block;
+      color: white;
+      text-align: center;
+      padding: 14px 20px;
+      text-decoration: none;
+    }
+    .navbar a:hover {
+      background-color: #ddd;
+      color: black;
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Redirecting to NBViewer...</h1>
-    <p>If you are not redirected automatically, you can <a href="https://nbviewer.jupyter.org/github/dimo192/dimo192.github.io/blob/main/task 2/final.ipynb">click here</a>.</p>
+  <div class="navbar">
+    <a href="../index.html">Home</a>
+    <a href="../Website/task1.html">Task 1</a>
+    <a href="../Website/task1_code.html">Task 1 code</a>
+    <a href="../Website/task2.html">Task 2</a>
+    <a href="../Website/task2_code.html">Task 2 code</a>
+  </div>
+  <div><h1 style="text-align: center;">Simulation of &alpha;-&omega; Galactic Dynamo under slab approximation</h1></div>
+  <hr>
+  <p>Hydrodynamics, or fluid dynamics, provides a powerful framework for studying the motion of fluids in a wide range of contexts, from the flow of water in a pippet to the dynamics of gases in planets. However, when magnetic fields are present, the behavior of the fluid can be significantly altered due to the coupling between fluid motion and electromagnetic forces. This interaction gives rise to many phenomena that cannot be adequately described by hydrodynamics alone.</p>
+  <p>One such phenomenon is the generation and evolution of magnetic fields in astrophysical systems. While hydrodynamics can account for the motion of conducting fluids, it fails to explain how magnetic fields are generated and maintained over cosmic timescales. </p>
+
+  <p>This is where magnetohydrodynamics(MHD) comes into play. By including the effect of electromagnetic forces into fluid dynamics, MHD provides a more information about the dynamics of magnetized fluids. In MHD, the behavior of the fluid is influenced not only by its own motion but also by the presence of magnetic fields</p>
+  <p>The magnetic induction equation can be considered the basis of MHD and is derived from maxwells equation, ohms law and conditions that occur in ideal cases. this equation is</p>
+  <p style="font-size: 18px; text-align: center;">\(\frac{\partial \boldsymbol{B}}{\partial t} = \nabla \times (\boldsymbol{V} \times \boldsymbol{B} - \eta \nabla \times \boldsymbol{B})\)</p>
+  <p>In the above equation</p>
+  <ul>
+    <li>The \(\nabla \times(\boldsymbol{V} \times \boldsymbol{B})\) is the induction term. This causes the magnetic and velocity fields to grow.</li>
+    <li>The \(\nabla \times(\eta \nabla \times \boldsymbol{B})\) is the diffusion term and decays the magnetic field over time.</li>
+
+  </ul>
+
+  <p>Turbulance affects the behavior of the above equation profoundly. The turblance leads to increased dissipation of magnetic fields at smaller scales. Thus it can significantly alter the evolution and distribution over space of magnetic fields. However, as turbulace is random simulating it will be tough and hence the mean field induction equation with further simplifications will be numerically simulated in this project.</p>
+  <p>If we consider \(\boldsymbol{B}=\overline{\boldsymbol{B}}+\boldsymbol{b}\) and \(\boldsymbol{V}=\overline{\boldsymbol{V}}+\boldsymbol{v}\) and substituting it in the induction equation. We get</p>
+  <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{(B+b)}}}{\partial t} = \nabla \times (\overline{\boldsymbol{V} \times \boldsymbol{B}} +\overline{\boldsymbol{v} \times \boldsymbol{B}}+\overline{\boldsymbol{V} \times \boldsymbol{b}}+ \overline{\boldsymbol{v} \times \boldsymbol{b}} - \eta \nabla \times \overline{(\boldsymbol{B+b})})\)</p>
+  <p>We can use reynolds averaging rule to further simply the equation to </p>
+  <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \nabla \times (\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}} + \overline{\boldsymbol{v} \times \boldsymbol{b}} - \eta \nabla \times \overline{\boldsymbol{B}})\)</p>
+  <p>We will simulate the equation by using numerical methods and observe the evolution of magnetic field over time.</p>
+  <hr>
+  <h2>References</h2>
+
+  <p>1. Rajihy, Yasen & Mechee, Mohammed. (2017). Generalized RK Integrators for Solving Ordinary Differential Equations: A Survey & Comparison Study. Global Journal of Pure and Applied Mathematics. 13. 2923-2949.</p>
+  <p>2. Computational Physics by Richard Fitzpatric</p>
+  <hr>
 </body>
 </html>

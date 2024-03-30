@@ -14,9 +14,9 @@
       color: white;
       text-align: left;
       font-size: 16px;
-      max-width: 800px; /* Limiting maximum width to 800px */
-      margin: 0 auto; /* Centering the content horizontally */
-      padding: 0 20px; /* Adding some padding */
+      max-width: 1000px; 
+      margin: 0 auto; 
+      padding: 0 20px;
     }
     .navbar {
       overflow: hidden;
@@ -61,7 +61,12 @@
 
   </ul>
 
-  <p>Turbulance affects the behavior of the above equation profoundly. The </p>
+  <p>Turbulance affects the behavior of the above equation profoundly. The turblance leads to increased dissipation of magnetic fields at smaller scales. Thus it can significantly alter the evolution and distribution over space of magnetic fields. However, as turbulace is random simulating it will be tough and hence the mean field induction equation with further simplifications will be numerically simulated in this project.</p>
+  <p>If we consider \(\boldsymbol{B}=\overline{\boldsymbol{B}}+\boldsymbol{b}\) and \(\boldsymbol{V}=\overline{\boldsymbol{V}}+\boldsymbol{v}\) and substituting it in the induction equation. We get</p>
+  <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{(B+b)}}}{\partial t} = \nabla \times (\overline{\boldsymbol{V} \times \boldsymbol{B}} +\overline{\boldsymbol{v} \times \boldsymbol{B}}+\overline{\boldsymbol{V} \times \boldsymbol{b}}+ \overline{\boldsymbol{v} \times \boldsymbol{b}} - \eta \nabla \times \overline{(\boldsymbol{B+b})})\)</p>
+  <p>We can use reynolds averaging rule to further simply the equation to </p>
+  <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \nabla \times (\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}} + \overline{\boldsymbol{v} \times \boldsymbol{b}} - \eta \nabla \times \overline{\boldsymbol{B}})\)</p>
+  <p>We will simulate the equation by using numerical methods and observe the evolution of magnetic field over time.</p>
   <hr>
   <h2>References</h2>
 
