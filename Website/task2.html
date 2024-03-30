@@ -48,6 +48,24 @@
   </div>
   <div><h1 style="text-align: center;">Simulation of &alpha;-&omega; Galactic Dynamo under slab approximation</h1></div>
   <hr>
+  The mean field dynamo equation
+  <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \nabla \times (\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}} + \mathcal{E} - \eta \nabla \times \overline{\boldsymbol{B}})\)</p>
+  where, \(\mathcal{E} = \alpha \overline{\boldsymbol{B}} - \eta_{\mathrm{t}} \boldsymbol{\nabla} \times \overline{\boldsymbol{B}}\) and ignore the induction term \(\nabla \times (\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}})\). This can symplify the equation to
+  <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \nabla \times (\alpha \overline{\boldsymbol{B}} - (\eta_{\mathrm{t}}+\eta) \boldsymbol{\nabla} \times \overline{\boldsymbol{B}} )\)</p>
+  Changing to cylinderical co-ordinates and assuming axis symmetric solution \(\frac{\partial}{\partial \phi}\)=0; and \(\frac{\partial}{\partial r}\)=0 due to slab approximation.
+  <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B_r}}}{\partial \tilde{t}} = -\frac{\partial}{\partial \tilde{z}}(\tilde{\alpha}\overline{B_\phi})+\frac{\partial^2}{\partial z^2}(\overline{B_r})\)</p>
+  <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B_\phi}}}{\partial \tilde{t}} = -q\tilde{\Omega}\overline{B_r}+\frac{\partial^2}{\partial z^2}(\overline{B_\phi})\)</p>
+   Converting all units to dimensionless units<ul>
+    <li>\(\tilde{t}=\frac{t}{t_0}\)</li><li>\(\tilde{z}=\frac{z}{h_0}\)</li><li>\(\tilde{r}=\frac{r}{h_0}\)</li><li>\(\tilde{\alpha}=\frac{t_0\alpha}{h_0}\); where \(\alpha=\alpha_0\hat{\alpha}(\tilde{z})\) where \(\hat{\alpha}(\tilde{z})\) is an odd fucntion (eg. sin function) </li><li>\(\tilde{\Omega}=\Omega t_0\)</li>
+   </ul> where, \(h_0\) is a unit of lenght; \(t_0\) is a unit of time with \(t_0=\frac{h_0^2}{\eta_t}\). Substituting this in above equation; we get 
+   <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B_r}}}{\partial \tilde{t}} = -\frac{\partial}{\partial \tilde{z}}(\tilde{\alpha}\overline{B_\phi})+\frac{\partial^2}{\partial z^2}(\overline{B_r})\)</p>
+  <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B_\phi}}}{\partial \tilde{t}} = -q\tilde{\Omega}\overline{B_r}+\frac{\partial^2}{\partial z^2}(\overline{B_\phi})\)</p>
+  We can then define \(R_\alpha\equiv\frac{h\alpha_0}{\eta_t}\) and \(R_\Omega\equiv-\frac{h^2q\Omega}{\eta_t}\). Then critical dynamo number can be defined as
+  <p style="font-size: 18px;text-align: center;">\(D=R_\alpha R_\Omega= -\frac{q\Omega \alpha_0 h^3}{\eta_T}\)</p>
+  
+
+  
+  <hr>
   <h3 style="text-align: center;">Calculation of critical dynamo number(\(D_c\))</h3>
   The critical dynamo number is a number parameter that controls the regimes of the magnetic field amplification and decay in the system.
   The critical dynamo number is a dimensionless number that can be defined by
@@ -59,11 +77,15 @@
     <li>Vary the dynamo number of the system.(This was done in the program by varying magnetic diffusion \(\eta_T\)).</li>
     <li>Calulate the variation of \(B_r\) and \(B_\phi\) with respect to time for this particular value of dynamo number.</li>
     <li>Calculate the norm at one particular z for every time considered.In my simulation z=0(as grid spans from z&#8712;[-L,L]) was chosen. </li>
-    <li>Then from t=\(t_0\); check if norm B at time t greater than norm B at time t'; where t> t'. This is done in a recurssion as the system may have reached a steady state at time t=\(t_0\).</li>
+    <li>Then from t=\(t_0\); check if norm B at time t greater than norm B at time t'; where t> t' for any t'. This is done in a recurssion as the system may have reached a steady state at time t=\(t_0\).</li>
     <li>Store dynamo numbers for which the simulated system grows and take the minimum dynamo number. This is the crtical dynamo number.(In simulation \(\eta_T\) values were stored and maximum eta was taken to calclate minimum dynamo number.)</li>
 </ol>    
 
   
 <hr>
+<h3 style="text-align: center;">Code</h3>
+<p style="text-align: center;">Access the code from the options in the navbar or <a href="task2_code.html">click here</a>.</p>
+<hr>
+
 </body>
 </html>
