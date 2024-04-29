@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <title>Galactic Dynamo(Z)</title>
+  <title>Galactic Dynamo(Z)-2011136</title>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <style>
@@ -14,7 +14,7 @@
       color: rgb(0, 0, 0);
       text-align: left;
       font-size: 16px;
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 20 20px;
       position: relative;
@@ -77,7 +77,7 @@
     .algorithm {
       border: 1px solid #ccc;
       border-radius: 5px;
-      padding: 10px;
+      padding: 5px;
       margin-bottom: 20px;
       background: #ccc;
     }
@@ -100,7 +100,7 @@
       color: #000000;
       border-radius: 50%;
       width: 20px;
-      height: 20px;
+      height: 10px;
       text-align: center;
       line-height: 20px;
       display: inline-block;
@@ -112,7 +112,7 @@
         justify-content: center;
     }
     .image-box {
-        width: calc(50% - 15px); /* Adjust the width as needed */
+        width: calc(50% - 30px); /* Adjust the width as needed */
         margin: 0px;
         text-align: center;
     }
@@ -122,7 +122,7 @@
     }
     .caption {
         font-style: italic;
-        color: #888;
+        color: #272727;
     }
   </style>
   <script>
@@ -160,165 +160,252 @@
   <div id="section1">
     <h2 style="text-align: center;">Abstract</h3>
     <hr>
-    The simulation of galactic mean-field dynamos serves as a method in understanding the dynamics of cosmic magnetic fields. By simulating a mean field dynamo numerically we gain an understanding of conditions required the generation and decay of different modes of magnetic field in cosmic systems.
-    <p>In this particular example we explore the relationship between the motion of the fluid and the existing magnetic field of the system(The relationship for which is given by the  \(\alpha\)-term). By doing this we can explore if any and every form of interaction between the field and the fluid will lead to an exponential growth of the dynamo. </p>
-    <p>In our code we use 4th order finite differencing and 6th order Runge kutta for simulating the dynamo and getting the results. We see that while the  \(\alpha\)-term plays a major role in the form of the final magnetic field and the time it takes to reach this value. </p>
-    <p>As cosmic events take place over the scale of gigayears this implies that the \(\alpha\)-term plays a major role in determining if the dynamo is a fast or slow dynamo. </p>
-<hr>
-  </div>
-  <div id="section2">
-    <h3 style="text-align: center;">Introduction</h3>
-    The mean field dynamo equation is given by
-    <div id="equation1">
-      <p style="font-size: 18px; text-align: center;">
-        \(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \nabla \times (\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}} + \mathcal{E} - \eta \nabla \times \overline{\boldsymbol{B}})\)
-      ` <span class="equation-number"> (1) </span>
-      </p>
-    </div>
-    where, \(\mathcal{E} = \alpha \overline{\boldsymbol{B}} - \eta_{\mathrm{t}} \boldsymbol{\nabla} \times \overline{\boldsymbol{B}}\) and ignore the induction term \(\nabla \times (\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}})\). This can symplify the equation to
-    <div id="equation2">
-      <p style="font-size: 18px; text-align: center;">
-        \(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \nabla \times (\alpha \overline{\boldsymbol{B}} - (\eta_{\mathrm{t}}+\eta) \boldsymbol{\nabla} \times \overline{\boldsymbol{B}} )\)
-        <span class="equation-number"> (2) </span>
-      </p>
-    </div>
-    Changing to cylinderical co-ordinates and assuming axis symmetric solution \(\frac{\partial}{\partial \phi}\)=0; and \(\frac{\partial}{\partial r}\)=0 due to slab approximation.
-    <div id="equation3">
-      <p style="font-size: 18px; text-align: center;">
-        \(\frac{\partial \overline{\boldsymbol{B_r}}}{\partial \tilde{t}} = -\frac{\partial}{\partial \tilde{z}}(\tilde{\alpha}\overline{B_\phi})+\frac{\partial^2}{\partial z^2}(\overline{B_r})\)
-        <span class="equation-number"> (3) </span>
-      </p>
-    </div>
-    <div id="equation4">
-      <p style="font-size: 18px; text-align: center;">
-        \(\frac{\partial \overline{\boldsymbol{B_\phi}}}{\partial \tilde{t}} = -q\tilde{\Omega}\overline{B_r}+\frac{\partial^2}{\partial z^2}(\overline{B_\phi})\)
-        <span class="equation-number"> (4) </span>
-      </p>
-    </div>
-    <p>As can be seen in equations <a href="#equation3">(3)</a> and <a href="#equation4">(4)</a>, we see that only equation <a href="#equation3">(3)</a> is affected by the \(\alpha\)-term. This term is the advecture term and causes the dynamo to grow over time.</p>
-    
-  
-<hr>
-  </div>
-  <div id="section3">
-    <h3 style="text-align: center;">Methods and Code</h3>
-    In this simulation we employ 4th order finite differencing for spacial derivatives and 6th order runge kutta for time derivative<a href="#ref1">[1]</a>. We follow the following steps
-    <div class="algorithm">
-      <h3>Algorithm</h3>
-      <ol>
-        <li>Step 1: Start with initialising a grid with choice number of grid points.</li>
-        <li>Step 2: Initialise two lists that will store the variables of magnetic field along r and another along \(\phi\).
-        <li>Step 3: Start at t=0 and increase t till a \(T_{max}\) is aciheved, do the following substeps for each t
-          <ol>
-            <li>Substep A: Calculate the space derivative of B at time t(Used 6th order finite differencing). Calculate the evolution of the magnetic field at time t+1 using the spacial derivatives(Rk6 used).</li>
-            <li>Substep B: Check if norm B has a magnitude lower than the maximum allowe magnetic field. Update magnetic field along r and \(\phi\) only if it is lower.</li>
-            <li>Substep C: Save these in 2 seperate 2d arrays to be used for calculation later.</li>
-          </ol>
-        </li>
-        <li>Step 4: When t=\(T_{max}\) calculate \(\gamma\).</li>
-      </ol>
-    </div>
-    
-    An additional constrain of maximum allower magnetic field was introduced to ensure that the dynamo reaches stauration within a finite time which is computationally feasible.
-    <p>By doing this we can compare the time it takes for the dynamo with specific parameters to reach saturation magnetic field and compare then for the same dynamo number.</p>
-    <p>Some specific cases that is of particular interest is </p>
-    <ol>
-      <li>\(\alpha\)=0; this leads to critical dynamo number 0 but it will interesting to see if the dynamo every grows, as \(\Omega\) term which is advecture for \(B_\phi\) still is non zero.</li>
-      <li>\(\alpha=\pm c\); this will compare if the sign of \(\alpha\) matters and what happens to the saturation time in this case. </li>
-      <li>\(\alpha=sin(\pi \frac{z}{nh})\); where z is distance of measurement from midplane, n is a natural number. By comparing for variuos n we can see if there is any effect on the saturation time.</li>
-      <li>\(\alpha=\pm\frac{z}{nh}\); where n is a natural number. By comparing for variuos n we can see if there is any effect on the saturation time.</li>
-    </ol>
-  </div>
+    The simulation of galactic mean-field dynamos serves as a method for understanding the dynamics of cosmic magnetic fields. By simulating a mean-field dynamo numerically we gain an understanding of conditions required for the generation and decay of different modes of magnetic field in cosmic systems.
+   <p>In this particular example we explore the relationship between the motion of the fluid and the existing magnetic field of the system(The relationship for which is given by the  \(\alpha\)-term). By doing this we can explore if any and every form of interaction between the field and the fluid will lead to an exponential growth of the dynamo. </p>
+   <p>In our code we use 4th-order finite differencing and 6th-order Runge Kutta for simulating the dynamo and getting the results. We see that the  \(\alpha\)-term plays a major role in the form of the final magnetic field and the time it takes to reach this value. </p>
+  <p>As cosmic events take place over the scale of gigayears this implies that the \(\alpha\)-term plays a major role in determining if the dynamo is fast or slow. </p>
+
+      
   <hr>
-  <div id="section4">
-    <h3 style="text-align: center;">Results</h3>
-    In the following sections we will use the dynamo number as -12.5 unless specified other wise. This is as this is just above the critical dynamo number (\(D_c\) as -8). Therefore we expect the dynamo to grow over time.
-    <p> The following combination of parameters was chosen to remain fixed; h=0.50kpc, 
-    \(\alpha_0=q=\Omega=\eta_t=10\) with their respective units, time_step is 1 Gyr and \(T_{max}\) was varied for in some cases to help observe the saturation time of the dynamo simulation(The maximum value for any simulation was 5000 Gyr). </p>
-
-    <p>The boundary condition chosen was the dirchlett boundar condition and a sine wave was chosen as the initial condition of the dynamo.</p>
-    <p>Here are the observations from the simulations</p>
-    <ul>
-    <li>
-      <h5>\(\alpha (z)=0\)</h5>In this case 
-      <p style="font-size: 18px;text-align: center;">\(\tilde{\alpha}=\alpha_0 \alpha(z)=>\alpha_0 \times 0\)</p>
-      Thus dynamo number becomes 0 and we expect the dynamo to decay over time. However it was observed that this decay is very slow if we consider the \(\Omega\) and q terms to be non zero. The simulation was run for a total time of 5000 units and the results obtained were as follows.
-      <div style="text-align: center;">
-        <video id="video" src="../Images/Task 3/a=0.mp4" controls style="display: block; margin: 0 auto;"></video>
-        <p style="font-style: italic; color: #888; text-align: center;">We see that there is a rapid increase at first then a very slow increase later.</p>
-    </div>
-    
-    <figure style="text-align: center;">
-        <img src="../Images/Task 3/a=0grid.png" alt="a0finalgrid" style="max-width: 80%; height: auto; display: block; margin-left: auto; margin-right: auto;">
-        <figcaption style="font-style: italic; color: #888;">This plot is the magnetic field at time \(T_{\text{max}}\)</figcaption>
-    </figure>
-    
-      <figure style="text-align: center;">
-        <img src="../Images/Task 3/a=0.png" alt="a0finalgrid" style="max-width: 80%; height: auto; display: block; margin-left: auto; margin-right: auto;">
-        <figcaption style="font-style: italic; color: #888;">In this figure it appears that the magnetic field stabilised this however is not stablising at the maximum allowed magnetic field and hence we cannot claim that the dynamo is undergoing exponential growth. </figcaption>
-      </figure>
-      
-    </div>
-    Note: The max allowed magnetic field is 141.421 units(this was chosen as \(100\times\sqrt{2}\times B_0\). i.e 100 times the normalised initial condition). The dynamo above never reaches the value within 5000 units of time. While its possible for it to decay after a londer time. due to system limitations higher t could not be run at this dt. 
-    </li>
-    <li><h5>\(\alpha (z)=\pm 10\)</h5>
-      In this particular case we observe that while the evolution of magnetic field does not change. we see thatthe final image of the grids are two mirror images along the vertical axis. 
-      <div style="text-align: center;">
-        <video id="video" src="../Images/Task 3/+10magnetic_field_evolution(T=5000).mp4" controls style="display: block; margin: 0 auto;"></video>
-        <p style="font-style: italic; color: #888; text-align: center;">This is for \(\alpha (z)=+10\). Similarly for \(\alpha (z)=-10\), we get a mirror images as shown in the images below. The gamma vs T graph for both cases are same.</p>
-    </div>
-    <div class="image-container">
-      <div class="image-box">
-          <h4>\(\alpha (z)=+10\)</h4>
-          <figure>
-              <img src="../Images/Task 3/+10grid.png" alt="Image 1">
-              <figcaption class="caption">We see that the two images are mirrored to each other along vertical axis.</figcaption>
-          </figure>
-      </div>
-      <div class="image-box">
-          <h4>\(\alpha (z)=-10\)</h4>
-          <figure>
-              <img src="../Images/Task 3/-10grid.png" alt="Image 2">
-              <figcaption class="caption">Caption for Image 2</figcaption>
-          </figure>
-      </div>
-      <div class="image-container">
-        <div class="image-box">
-            <figure>
-                <img src="../Images/Task 3/+10gamma2.png" alt="Image 1">
-                <figcaption class="caption">The gamma for both cases are the same.</figcaption>
-            </figure>
-        </div>
-      <div class="image-box">
-        <figure>
-            <img src="../Images/Task 3/+10gamma2.png" alt="Image 2">
-            <figcaption class="caption">For max magnetic field = 100 \(\times\) norm(initail condition) we get saturation time as 500 units.</figcaption>
-        </figure>
-    </div>
-  </div>
-    </li>
-  </ul>
+    </div>
+    <div id="section2">
+      <h3 style="text-align: center;">Introduction</h3>
+      <p>Magnetic fields around planets help them protect the atmosphere from cosmic rays and solar flares. However, the process of planets producing a magnetic field is not completely known and many theories have been put forward. The dynamo theory is a widely accepted theory that explains many phenomena. </p>
+      <p>The dynamo theory describes the general concept of how a celestial body generates a magnetic field. It proposes that the motion of a conducting fluid along with the body's rotation can create a self-sustaining magnetic field. However, turbulence within the fluid leads to a lot of complexity.</p>
   
+        <p>This is where the mean-field equation comes in. It's a system of equations derived using dynamo theory to capture the mean field of the magnetic field over a larger scale, instead of accounting for every turbulence and eddy current in the medium.</p>
+      The mean field dynamo equation is given by
+      <div id="equation1">
+        <p style="font-size: 18px; text-align: center;">
+          \(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \nabla \times (\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}} + \mathcal{E} - \eta \nabla \times \overline{\boldsymbol{B}})\)
+        ` <span class="equation-number"> (1) </span>
+        </p>
+      </div>
+      where, \(\mathcal{E} = \alpha \overline{\boldsymbol{B}} - \eta_{\mathrm{t}} \boldsymbol{\nabla} \times \overline{\boldsymbol{B}}\) and ignore the induction term \(\nabla \times (\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}})\). This can simplify the equation to
+      <div id="equation2">
+        <p style="font-size: 18px; text-align: center;">
+          \(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \nabla \times (\alpha \overline{\boldsymbol{B}} - (\eta_{\mathrm{t}}+\eta) \boldsymbol{\nabla} \times \overline{\boldsymbol{B}} )\)
+          <span class="equation-number"> (2) </span>
+        </p>
+      </div>
+      Changing to cylinderical co-ordinates and assuming axis symmetric solution \(\frac{\partial}{\partial \phi}\)=0; and \(\frac{\partial}{\partial r}\)=0 due to slab approximation.
+      <div id="equation3">
+        <p style="font-size: 18px; text-align: center;">
+          \(\frac{\partial \overline{\boldsymbol{B_r}}}{\partial \tilde{t}} = -\frac{\partial}{\partial \tilde{z}}(\tilde{\alpha}\overline{B_\phi})+\frac{\partial^2}{\partial z^2}(\overline{B_r})\)
+          <span class="equation-number"> (3) </span>
+        </p>
+      </div>
+      <div id="equation4">
+        <p style="font-size: 18px; text-align: center;">
+          \(\frac{\partial \overline{\boldsymbol{B_\phi}}}{\partial \tilde{t}} = -q\tilde{\Omega}\overline{B_r}+\frac{\partial^2}{\partial z^2}(\overline{B_\phi})\)
+          <span class="equation-number"> (4) </span>
+        </p>
+      </div>
+      <p>The alpha effect arises due to the combined effects of turbulence and rotation within the conducting fluid. The turbulence stretches, twists, and folds any magnetic field lines in the medium. The rotation(through the Coriolis effect) introduces a twist to the motion of the fluid.</p>
+      <p>This combined twisting and folding by turbulence and rotation under certain conditions leads to a net amplification of the magnetic field. In the mean-field equation alpha effect captures this net large-scale effect of the small-scale turbulent motions.</p>
+      <p>As can be seen in equations <a href="#equation3">(3)</a> and <a href="#equation4">(4)</a>, we see that only equation <a href="#equation3">(3)</a> is affected by the \(\alpha\)-term. </p>
+      
+    
+  <hr>
+    </div>
+    <div id="section3">
+      <h3 style="text-align: center;">Methods and Code</h3>
+      <p style="text-align: center;">Access the code from the options in the navbar or <a href="task3_code.html">click here</a>.</p>
+    <hr>
+      In this simulation, we employ 4th order finite differencing for spacial derivatives and 6th order runge kutta for time derivative<a href="#ref1">[1]</a>. We follow the following steps
+      <div class="algorithm">
+        <h3>Algorithm</h3>
+        <ol>
+          <li>Step 1: Start with initializing a grid with a choice number of grid points.</li>
+          <li>Step 2: Initialise two lists that will store the variables of the magnetic field along r and another along \(\phi\).
+          <li>Step 3: Start at t=0 and increase t till a \(T_{max}\) is achieved, do the following substeps for each t
+            <ol>
+              <li>Substep A: Calculate the space derivative of B at time t(Used 6th order finite differencing). Calculate the evolution of the magnetic field at time t+1 using the spatial derivatives(Rk6 used).</li>
+              <li>Substep B: Check if norm B has a magnitude lower than the maximum allowed magnetic field. Update the magnetic field along r and \(\phi\) only if it is lower.</li>
+              <li>Substep C: Save these in 2 separate 2d arrays to be used for calculation later.</li>
+            </ol>
+          </li>
+          <li>Step 4: When t=\(T_{max}\) calculate \(\gamma\).</li>
+        </ol>
+      </div>
+      
+      An additional constraint of maximum allower magnetic field was introduced to ensure that the dynamo reaches saturation within a finite time which is computationally feasible.
+      <p>By doing this we can compare the time it takes for the dynamo with specific parameters to reach saturation magnetic field and compare them for the same dynamo number.</p>
+      <p>Some specific cases that are of particular interest are </p>
+      <ol>
+        <li>\(\alpha\)=0; this leads to critical dynamo number 0 but it will interesting to see if the dynamo ever grows, as \(\Omega\) term which is advecture for \(B_\phi\) still is non zero.</li>
+        <li>\(\alpha=\pm c\); this will compare if the sign of \(\alpha\) matters and what happens to the saturation time in this case. </li>
+        <li>\(\alpha=sin(\pi \frac{z}{nh})\); where z is the distance of measurement from the midplane, n is a natural number. By comparing for various n we can see if there is any effect on the saturation time.</li>
+        <li>\(\alpha=\pm\frac{z}{nh}\); where n is a natural number. By comparing for various n we can see if there is any effect on the saturation time.</li>
+      </ol>
+    </div>
+    <hr>
+    <div id="section4">
+      <h3 style="text-align: center;">Results</h3>
+      In the following sections, we will use the dynamo number as -12.5 unless specified otherwise. This is as this is just above the critical dynamo number (\(D_c\) as -8). Therefore we expect the dynamo to grow over time.
+      <p> The following combination of parameters was chosen to remain fixed; h=0.50kpc, 
+      \(\alpha_0=q=\Omega=\eta_t=10\) with their respective units, time_step is 1 Gyr and \(T_{max}\) was varied for in some cases to help observe the saturation time of the dynamo simulation(The maximum value for any simulation was 5000 Gyr). </p>
+  
+      <p>The boundary condition chosen was the Dirichlet boundary condition and a sine wave was chosen as the initial condition of the dynamo.</p>
+      <p>Here are the observations from the simulations</p>
+      <ul>
+      <li>
+        <h5>\(\alpha (z)=0\)</h5>In this case 
+        <p style="font-size: 18px;text-align: center;">\(\tilde{\alpha}=\alpha_0 \alpha(z)=>\alpha_0 \times 0\)</p>
+        Thus dynamo number becomes 0 and we expect the dynamo to decay over time. However, it was observed that this decay is very slow if we consider the \(\Omega\) and q terms to be non-zero. The simulation was run for a total time of 5000 units and the results obtained were as follows.
+        <div style="text-align: center;">
+          <video id="video" src="../Images/Task 3/a=0.mp4" controls style="display: block; margin: 0 auto;"></video>
+          <p style="font-style: italic; color: #888; text-align: center;">We see that there is a rapid increase at first then a very slow increase later.</p>
+      </div>
+      
+      <figure style="text-align: center;">
+          <img src="../Images/Task 3/a=0grid.png" alt="a0finalgrid" style="max-width: 80%; height: auto; display: block; margin-left: auto; margin-right: auto;">
+          <figcaption style="font-style: italic; color: #888;">This plot is the magnetic field at time \(T_{\text{max}}\)</figcaption>
+      </figure>
+      
+        <figure style="text-align: center;">
+          <img src="../Images/Task 3/a=0.png" alt="a0finalgrid" style="max-width: 80%; height: auto; display: block; margin-left: auto; margin-right: auto;">
+          <figcaption style="font-style: italic; color: #888;">In this figure it appears that the magnetic field stabilized this, however, is not stabilizing at the maximum allowed magnetic field, and hence we cannot claim that the dynamo is undergoing exponential growth. </figcaption>
+        </figure>
+        
+      
+      Note: The max allowed magnetic field is 141.421 units(this was chosen as \(100\times\sqrt{2}\times B_0\). i.e 100 times the normalized initial condition). The dynamo above never reaches the value within 5000 units of time. While it can decay after a longer time. due to system limitations higher t could not be run at this dt. 
+      </li>
+      <li><h5>\(\alpha (z)=\pm 10\)</h5>In this particular case we observe that the evolution of the magnetic field does not change. we see that the final image of the grids is two mirror images along the vertical axis. 
+        <div style="text-align: center;">
+          <video id="video" src="../Images/Task 3/+10magnetic_field_evolution(T=5000).mp4" controls style="display: block; margin: 0 auto;"></video>
+          <p style="font-style: italic; color: #888; text-align: center;">This is for \(\alpha (z)=+10\). Similarly for \(\alpha (z)=-10\), we get mirror images as shown in the images below. </p>
+      </div>
+      <div class="image-container">
+        <div class="image-box">
+            <h4>\(\alpha (z)=+10\)</h4>
+            <figure>
+                <img src="../Images/Task 3/+10grid.png" alt="Image 1">
+                <figcaption class="caption">We see that the two images are .</figcaption>
+            </figure>
+        </div>
+        <div class="image-box">
+            <h4>\(\alpha (z)=-10\)</h4>
+            <figure>
+                <img src="../Images/Task 3/-10grid.png" alt="Image 2">
+                <figcaption class="caption">mirrored to each other along vertical axis</figcaption>
+            </figure>
+        </div>
+        <div class="image-container">
+          <div class="image-box">
+              <figure>
+                  <img src="../Images/Task 3/+10gamma2.png" alt="Image 1">
+                  <figcaption class="caption">The gamma for both cases are the same.</figcaption>
+              </figure>
+          </div>
+        <div class="image-box">
+          <figure>
+              <img src="../Images/Task 3/+10gamma2.png" alt="Image 2">
+              <figcaption class="caption">For max magnetic field = 100 \(\times\) norm(initail condition) we get saturation time as 500 units.</figcaption>
+          </figure>
+      </div>
+    </div>
+    It is possible to get better figures. However, that involves changing the saturation magnetic field for the dynamo. However, as for comparing saturation current between different modes, this was not increased.
+      </li>
+      <li><h5>\(\alpha (z)=sin(\pi \frac{z}{nh})\)</h5>The case was studied for n=16 and n=32
+        <div style="text-align: center;">
+          <video id="video" src="../Images/Task 3/combined_videos.mp4" controls style="display: block; margin: 0 auto;"></video>
+          <p style="font-style: italic; color: #232323; text-align: center;">Video on right corresponds to n=32 and video on left to n=16; we see that n=5 reaches saturation faster.</p>
+      </div>
+      <div class="image-container">
+        <div class="image-box">
+            <figure>
+              <h4>\(\alpha (z)=sin(\pi \frac{z}{32h})\)</h4>
+                <img src="../Images/Task 3/sin32hgrid.png" alt="Image 1">
+                <figcaption class="caption"></figcaption>
+            </figure>
+        </div>
+      <div class="image-box">
+        <figure>
+          <h4>\(\alpha (z)=sin(\pi \frac{z}{16h})\)</h4>
+            <img src="../Images/Task 3/sin16hgrid.png" alt="Image 2">
+            <figcaption class="caption"></figcaption>
+        </figure>
+    </div>
+    <div class="image-container">
+      <div class="image-box">
+          <figure>
+              <img src="../Images/Task 3/sin32hgamma.png" alt="Image 1">
+              <figcaption class="caption">Saturation time: 1200 units</figcaption>
+          </figure>
+      </div>
+    <div class="image-box">
+      <figure>
+          <img src="../Images/Task 3/sin16hgamma.png" alt="Image 2">
+          <figcaption class="caption">Saturation time: 1340 units</figcaption>
+      </figure>
   </div>
-
-<hr>
-<div id="section5">
-  <h3 style="text-align: center;">Discussion</h3>
-  <ul>
-  <li>The simulation was done sucesfully and it was observed that while \(\alpha\)-term does play a major role in determining if the dynamo is fast or slow it does not cause a dynamo to decay. This is expected from the equations as 
-   <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B_r}}}{\partial \tilde{t}} = -\frac{\partial}{\partial \tilde{z}}(\tilde{\alpha}\overline{B_\phi})+\frac{\partial^2}{\partial z^2}(\overline{B_r})\)</p>
-  <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B_\phi}}}{\partial \tilde{t}} = -q\tilde{\Omega}\overline{B_r}+\frac{\partial^2}{\partial z^2}(\overline{B_\phi})\)</p>
-</li> <li> <p>We see that \(\frac{\partial \overline{\boldsymbol{B_r}}}{\partial \tilde{t}}\) has a term that depends on \(\alpha\) but no other term does so. Thus as discussed in the case when \(\alpha\)=0 throughout the system; we observe that the growth \(\boldsymbol{B_\phi}\) is not affected by \(\alpha\) and the \(\boldsymbol{B_\phi}\) grows exponentially initially. However as time increases; as \(B_r\) does not increase(as \(\alpha=0\)). We notice that \(B_\phi\) also does not increase rapidly as \(B_r\) as decayed.</li>
-  <li> Thus after a long time we expect even \(B_{\phi}\) to decay(as diffusion term will be higher(as diffusion term depends on \(B_{\phi}\))) which was not possible in the device in which the simulation was run (kernel keeps crashing if t>8000.). This can be simulated in a more efficeint way to. </p></li>
+  </div>
+  <p>We see that saturation field is achieved in \(\alpha (z)=sin(\pi \frac{z}{16h})\) slower than in that of  \(\alpha (z)=sin(\pi \frac{z}{32h})\).</p>
+      </li>
+      <li><h5>\(\alpha (z)=\frac{z}{nh}\)</h5>The case was studied for n=5 and n=10
+        <div style="text-align: center;">
+          <video id="video" src="../Images/Task 3/combined_z.mp4" controls style="display: block; margin: 0 auto;"></video>
+          <p style="font-style: italic; color: #2b2b2b; text-align: center;">Video on right corresponds to n=1 and video on left to n=10; we see that n=1 reaches saturation faster.</p>
+      </div>
+      <div class="image-container">
+        <div class="image-box">
+            <figure>
+              <h4>\(\alpha (z)=\frac{z}{h}\)</h4>
+                <img src="../Images/Task 3/zh.png" alt="Image 1">
+                <figcaption class="caption"></figcaption>
+            </figure>
+        </div>
+      <div class="image-box">
+        <figure>
+          <h4>\(\alpha (z)=\frac{z}{10h}\)</h4>
+            <img src="../Images/Task 3/z10hgrid.png" alt="Image 2">
+            <figcaption class="caption"></figcaption>
+        </figure>
+    </div>
+    <div class="image-container">
+      <div class="image-box">
+          <figure>
+              <img src="../Images/Task 3/zhgamma.png" alt="Image 1">
+              <figcaption class="caption">Saturation time: 200 units</figcaption>
+          </figure>
+      </div>
+    <div class="image-box">
+      <figure>
+          <img src="../Images/Task 3/z10hgamma.png" alt="Image 2">
+          <figcaption class="caption">Saturation time: 1350 units</figcaption>
+      </figure>
+  </div>
+  </div>
+  <p>We see that \(\frac{z}{h}\) has a saturation time of 200 units; this is the least saturation time in any case that was investigated in this project.</p>
+      </li>
+    </ul>
+    
+    </div>
+  
+  <hr>
+  <div id="section5">
+    <h3 style="text-align: center;">Discussion</h3>
+    <ul>
+    <li><p>The simulation was done successfully and it was observed that while \(\alpha\)-term does play a major role in determining if the dynamo is fast or slow it does not cause a dynamo to decay. This is expected from the equations as </p>
+     <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B_r}}}{\partial \tilde{t}} = -\frac{\partial}{\partial \tilde{z}}(\tilde{\alpha}\overline{B_\phi})+\frac{\partial^2}{\partial z^2}(\overline{B_r})\)</p>
+    <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B_\phi}}}{\partial \tilde{t}} = -q\tilde{\Omega}\overline{B_r}+\frac{\partial^2}{\partial z^2}(\overline{B_\phi})\)</p>
+  </li> <li><p> We see that \(\frac{\partial \overline{\boldsymbol{B_r}}}{\partial \tilde{t}}\) has a term that depends on \(\alpha\) but no other term does so. Thus as discussed in the case when \(\alpha\)=0 throughout the system; we observe that the growth \(\boldsymbol{B_\phi}\) is not affected by \(\alpha\) and the \(\boldsymbol{B_\phi}\) grows exponentially initially. However as time increases; as \(B_r\) does not increase(as \(\alpha=0\)). We notice that \(B_\phi\) also does not increase rapidly as \(B_r\) has decayed.</p></li>
+    <li> <p>Thus after a long time we expect even \(B_{\phi}\) to decay(as diffusion term will be higher(as diffusion term depends on \(B_{\phi}\))) which was not possible in the device in which the simulation was run (kernel keeps crashing if t>8000.). This can be simulated more efficiently too. </p></li>
+  <li><p>In the case of \(\alpha(z)=\pm 10\); we get the same decay constant for both positive and negative the only difference being that the evolution of the magnetic field is mirrored with respect to each other.</p></li>
+  <li><p>Similarly for \(\alpha (z)=sin(\pi \frac{z}{nh})\) even with a significant increase in n the decay constant decreases very slowly.</p></li>
+  <li><p>For \(\alpha (z)=\frac{z}{nh}\) which is an odd function even a unit increase in n increases the saturation time by at least 100 units.</p></li>
+  
   </ul>
-</div>
-<div id="section6"><h3 style="text-align: center;">References</h3>
-
-  <p id="ref1">1. Rajihy, Y., &amp; Mechee, M. 2017, <i>Global Journal of Pure and Applied Mathematics</i>, 13, 2923-2949.</p>
-  <p id="ref2">2. Fitzpatric, R. (2014), <i>Computational Physics</i>.</p>
-  <p id="ref3">3. Chamandy, L. 2016, <i>Monthly Notices of the Royal Astronomical Society</i>, 462(4), 4402–4415. </p>
-<!--Retrieved from <a href="https://academic.oup.com/mnras/article/462/4/4402/2589953">https://academic.oup.com/mnras/article/462/4/4402/2589953</a>-->
-</div>
-</div>
-</body>
-</html>
+  </div>
+  <div id="section6"><h3 style="text-align: center;">References</h3>
+  
+    <p id="ref1">1. Rajihy, Y., &amp; Mechee, M. 2017, <i>Global Journal of Pure and Applied Mathematics</i>, 13, 2923-2949.</p>
+    <p id="ref2">2. Fitzpatric, R. (2014), <i>Computational Physics</i>.</p>
+    <p id="ref3">3. Chamandy, L. 2016, <i>Monthly Notices of the Royal Astronomical Society</i>, 462(4), 4402–4415. </p>
+  <!--Retrieved from <a href="https://academic.oup.com/mnras/article/462/4/4402/2589953">https://academic.oup.com/mnras/article/462/4/4402/2589953</a>-->
+  </div>
+  </div>
+  </body>
+  </html>
+  
