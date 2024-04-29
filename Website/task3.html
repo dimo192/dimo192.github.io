@@ -213,46 +213,39 @@
   <hr>
   <div id="section4">
     <h3 style="text-align: center;">Results</h3>
-    <ol>
-      <li> For the parameters h=1.0, \(\alpha_0\)=1.0, q=1.0, \(\Omega\)=1.0, \(\eta_t\) = 10.0, \(t_0\)=1.0. We get
-        <div id="video-container">
-        <video id="video" src="../Images/Task 2/magnetic_field_evolution(T=500).mp4" controls></video>
-        <p style="font-style: italic; color: #3c3c3c;text-align: center;">This video shows the evolution of the magnetic field for T=500. For the given parameters the magnetic field decays over time</p>
-      </div> 
-      
-    <figure style="text-align: center;">
-      <img src="../Images/Task 2/eta_t=10; local gamma.png" alt="Discussion2gamma" style="max-width: 80%; height: auto; display: block; margin-left: auto; margin-right: auto;">
-      <figcaption style="font-style: italic; color: #3c3c3c;">This plot shows that for the above simulation we can see two slopes; the magnetic field initially decays faster than the decay of magnetic field after t=50 units(this is where the split occurs). We can expect \(\gamma\) to be even lower as T increses</figcaption>
-    </figure></li>
+    In the following sections we will use the dynamo number as -12.5 unless specified other wise. This is as this is just above the critical dynamo number (\(D_c\) as -8). This we expect the dynamo to grow over time. This was done by the following combination of parameters; h=0.50kpc, 
+    \(\alpha_0=q=\Omega=\eta_t=10\) with their respective units, time_step is 1 Gyr and \(T_{max}\) was varied for in some cases to help observe the saturation time of the dynamo simulation(The maximum value for any simulation was 5000 Gyr). 
+    <p>Here are the observations from the simulations</p>
+    <ul>
+    <li>
+      <h5>\(\alpha (z)=0\)</h5>In this case 
+      <p style="font-size: 18px;text-align: center;">\(\tilde{\alpha}=\alpha_0 \alpha(z)=>\alpha_0 \times 0\)</p>
+      Thus dynamo number becomes 0 and we expect the dynamo to decay over time. However it was observed that this decay is very slow if we consider the \(\Omega\) and q terms to be non zero. The simulation was run for a total time of 5000 units and the results obtained were as follows.
+       
     
-    <li>The critical dynamo number was calculated to be -0.2035. This was for \(\eta_T\) value 4.913.</li>
-    <li>The local gamma for <ul><li>\(\eta_T\)&#8776; 4.913(D&#8776;-0.2035&#8776;\(D_c\))<figure style="text-align: center;">
-      <img src="../Images/Task 2/eta_t=eta_critical; local gamma.png" alt="Discussion2gamma" style="max-width: 80%; height: auto; display: block; margin-left: auto; margin-right: auto;">
-      <figcaption style="font-style: italic; color: #3c3c3c;">After a while we see that the log B vs T graph is increasing very slowly; ideally this should be a constant line; however due to rounding error. We observe a slight slope.</figcaption>
-    
-    </figure></li>
-    <li>The local gamma for <ul><li>\(\eta_T\)&#8776; 1(D&#8776;-9)<figure style="text-align: center;">
-      <img src="../Images/Task 2/eta_t=1; local gamma(exponential growth).png" alt="Discussion2gamma" style="max-width: 80%; height: auto; display: block; margin-left: auto; margin-right: auto;">
-      <figcaption style="font-style: italic; color: #3c3c3c;">We see exponential growth in the system.</figcaption>
-    
-    </figure></li></ul></li>
-    </ol>
+    </li>
+  </ul>
+  
   </div>
-</div>
+
+<hr>
 <div id="section5">
   <h3 style="text-align: center;">Discussion</h3>
-  The simulation was done sucesfully and it was observed that while \(\alpha\)-term does play a major role in deteimining if the dynamo is fast or slow it does not cause a dynamo to decay. This is expected from the equations as 
-  <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B_r}}}{\partial \tilde{t}} = -\frac{\partial}{\partial \tilde{z}}(\tilde{\alpha}\overline{B_\phi})+\frac{\partial^2}{\partial z^2}(\overline{B_r})\)</p>
+  <ul>
+  <li>The simulation was done sucesfully and it was observed that while \(\alpha\)-term does play a major role in determining if the dynamo is fast or slow it does not cause a dynamo to decay. This is expected from the equations as 
+   <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B_r}}}{\partial \tilde{t}} = -\frac{\partial}{\partial \tilde{z}}(\tilde{\alpha}\overline{B_\phi})+\frac{\partial^2}{\partial z^2}(\overline{B_r})\)</p>
   <p style="font-size: 18px;text-align: center;">\(\frac{\partial \overline{\boldsymbol{B_\phi}}}{\partial \tilde{t}} = -q\tilde{\Omega}\overline{B_r}+\frac{\partial^2}{\partial z^2}(\overline{B_\phi})\)</p>
-  We see that \(\frac{\partial \overline{\boldsymbol{B_r}}}{\partial \tilde{t}}\) has a term that depends on \(\alpha\) but no other term does so. Thus as discussed in the case when \(\alpha\)=0 throughout the system; we observe that the growth \(\boldsymbol{B_\phi}\) is not affected by \(\alpha\) and the \(\boldsymbol{B_\phi}\) grows exponentially under centrain cunditions(dynamo number greater than critical dynamo number) and as \(\boldsymbol{B_r}\) has a term that involves gradient square of \(\boldsymbol{B_\phi}\). As expected we observed that \(\boldsymbol{B_r}\) also grows slowly. Thus the dynamo takes longer time to reach the maximum magnetic field.
-
+</li> <li> <p>We see that \(\frac{\partial \overline{\boldsymbol{B_r}}}{\partial \tilde{t}}\) has a term that depends on \(\alpha\) but no other term does so. Thus as discussed in the case when \(\alpha\)=0 throughout the system; we observe that the growth \(\boldsymbol{B_\phi}\) is not affected by \(\alpha\) and the \(\boldsymbol{B_\phi}\) grows exponentially initially. However as time increases; as \(B_r\) does not increase(as \(\alpha=0\)). We notice that \(B_\phi\) also does not increase rapidly as \(B_r\) as decayed.</li>
+  <li> Thus after a long time we expect even \(B_{\phi}\) to decay(as diffusion term will be higher(as diffusion term depends on \(B_{\phi}\))) which was not possible in the device in which the simulation was run (kernel keeps crashing if t>8000.). This can be simulated in a more efficeint way to. </p></li>
+  </ul>
 </div>
-<div id="section6"><h2>References</h2>
+<div id="section6"><h3 style="text-align: center;">References</h3>
 
   <p id="ref1">1. Rajihy, Y., &amp; Mechee, M. 2017, <i>Global Journal of Pure and Applied Mathematics</i>, 13, 2923-2949.</p>
   <p id="ref2">2. Fitzpatric, R. (2014), <i>Computational Physics</i>.</p>
   <p id="ref3">3. Chamandy, L. 2016, <i>Monthly Notices of the Royal Astronomical Society</i>, 462(4), 4402–4415. </p>
-<!--Retrieved from <a href="https://academic.oup.com/mnras/article/462/4/4402/2589953">https://academic.oup.com/mnras/article/462/4/4402/2589953</a>-->>
+<!--Retrieved from <a href="https://academic.oup.com/mnras/article/462/4/4402/2589953">https://academic.oup.com/mnras/article/462/4/4402/2589953</a>-->
+</div>
 </div>
 </body>
 </html>
