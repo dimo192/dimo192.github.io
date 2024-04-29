@@ -106,6 +106,24 @@
       display: inline-block;
       margin-right: 10px;
     }
+    .image-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .image-box {
+        width: calc(50% - 15px); /* Adjust the width as needed */
+        margin: 0px;
+        text-align: center;
+    }
+    .image-box img {
+        max-width: 100%;
+        height: auto;
+    }
+    .caption {
+        font-style: italic;
+        color: #888;
+    }
   </style>
   <script>
     function toggleConclusion() {
@@ -127,6 +145,7 @@
     <a href="#section4">Results</a></li>
     <a href="#section5">Discussion</a></li>
     <a href="#section6">References</a></li>
+    <a href="../Website/task3_code.html">Code</a></li>
     <!--  planning on doing this to see all task 1,2,3 in nav bar
       <a href="javascript:void(0);" onclick="toggleConclusion()">Conclusion</a>
       <ul id="conclusionList" style="list-style-type:none;">
@@ -213,16 +232,70 @@
   <hr>
   <div id="section4">
     <h3 style="text-align: center;">Results</h3>
-    In the following sections we will use the dynamo number as -12.5 unless specified other wise. This is as this is just above the critical dynamo number (\(D_c\) as -8). This we expect the dynamo to grow over time. This was done by the following combination of parameters; h=0.50kpc, 
-    \(\alpha_0=q=\Omega=\eta_t=10\) with their respective units, time_step is 1 Gyr and \(T_{max}\) was varied for in some cases to help observe the saturation time of the dynamo simulation(The maximum value for any simulation was 5000 Gyr). 
+    In the following sections we will use the dynamo number as -12.5 unless specified other wise. This is as this is just above the critical dynamo number (\(D_c\) as -8). Therefore we expect the dynamo to grow over time.
+    <p> The following combination of parameters was chosen to remain fixed; h=0.50kpc, 
+    \(\alpha_0=q=\Omega=\eta_t=10\) with their respective units, time_step is 1 Gyr and \(T_{max}\) was varied for in some cases to help observe the saturation time of the dynamo simulation(The maximum value for any simulation was 5000 Gyr). </p>
+
+    <p>The boundary condition chosen was the dirchlett boundar condition and a sine wave was chosen as the initial condition of the dynamo.</p>
     <p>Here are the observations from the simulations</p>
     <ul>
     <li>
       <h5>\(\alpha (z)=0\)</h5>In this case 
       <p style="font-size: 18px;text-align: center;">\(\tilde{\alpha}=\alpha_0 \alpha(z)=>\alpha_0 \times 0\)</p>
       Thus dynamo number becomes 0 and we expect the dynamo to decay over time. However it was observed that this decay is very slow if we consider the \(\Omega\) and q terms to be non zero. The simulation was run for a total time of 5000 units and the results obtained were as follows.
-       
+      <div style="text-align: center;">
+        <video id="video" src="../Images/Task 3/a=0.mp4" controls style="display: block; margin: 0 auto;"></video>
+        <p style="font-style: italic; color: #888; text-align: center;">We see that there is a rapid increase at first then a very slow increase later.</p>
+    </div>
     
+    <figure style="text-align: center;">
+        <img src="../Images/Task 3/a=0grid.png" alt="a0finalgrid" style="max-width: 80%; height: auto; display: block; margin-left: auto; margin-right: auto;">
+        <figcaption style="font-style: italic; color: #888;">This plot is the magnetic field at time \(T_{\text{max}}\)</figcaption>
+    </figure>
+    
+      <figure style="text-align: center;">
+        <img src="../Images/Task 3/a=0.png" alt="a0finalgrid" style="max-width: 80%; height: auto; display: block; margin-left: auto; margin-right: auto;">
+        <figcaption style="font-style: italic; color: #888;">In this figure it appears that the magnetic field stabilised this however is not stablising at the maximum allowed magnetic field and hence we cannot claim that the dynamo is undergoing exponential growth. </figcaption>
+      </figure>
+      
+    </div>
+    Note: The max allowed magnetic field is 141.421 units(this was chosen as \(100\times\sqrt{2}\times B_0\). i.e 100 times the normalised initial condition). The dynamo above never reaches the value within 5000 units of time. While its possible for it to decay after a londer time. due to system limitations higher t could not be run at this dt. 
+    </li>
+    <li><h5>\(\alpha (z)=\pm 10\)</h5>
+      In this particular case we observe that while the evolution of magnetic field does not change. we see thatthe final image of the grids are two mirror images along the vertical axis. 
+      <div style="text-align: center;">
+        <video id="video" src="../Images/Task 3/+10magnetic_field_evolution(T=5000).mp4" controls style="display: block; margin: 0 auto;"></video>
+        <p style="font-style: italic; color: #888; text-align: center;">This is for \(\alpha (z)=+10\). Similarly for \(\alpha (z)=-10\), we get a mirror images as shown in the images below. The gamma vs T graph for both cases are same.</p>
+    </div>
+    <div class="image-container">
+      <div class="image-box">
+          <h4>\(\alpha (z)=+10\)</h4>
+          <figure>
+              <img src="../Images/Task 3/+10grid.png" alt="Image 1">
+              <figcaption class="caption">We see that the two images are mirrored to each other along vertical axis.</figcaption>
+          </figure>
+      </div>
+      <div class="image-box">
+          <h4>\(\alpha (z)=-10\)</h4>
+          <figure>
+              <img src="../Images/Task 3/-10grid.png" alt="Image 2">
+              <figcaption class="caption">Caption for Image 2</figcaption>
+          </figure>
+      </div>
+      <div class="image-container">
+        <div class="image-box">
+            <figure>
+                <img src="../Images/Task 3/+10gamma2.png" alt="Image 1">
+                <figcaption class="caption">The gamma for both cases are the same.</figcaption>
+            </figure>
+        </div>
+      <div class="image-box">
+        <figure>
+            <img src="../Images/Task 3/+10gamma2.png" alt="Image 2">
+            <figcaption class="caption">For max magnetic field = 100 \(\times\) norm(initail condition) we get saturation time as 500 units.</figcaption>
+        </figure>
+    </div>
+  </div>
     </li>
   </ul>
   
