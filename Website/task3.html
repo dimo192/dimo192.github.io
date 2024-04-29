@@ -74,6 +74,38 @@
       margin-left: auto;
       margin-right: auto;
     }
+    .algorithm {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      margin-bottom: 20px;
+      background: #ccc;
+    }
+
+    .algorithm h3 {
+      margin-top: 0;
+    }
+
+    .algorithm ol {
+      counter-reset: step;
+    }
+
+    .algorithm ol li {
+      list-style: none;
+    }
+
+    .algorithm ol li:before {
+      content: counter(step);
+      counter-increment: step;      
+      color: #000000;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      text-align: center;
+      line-height: 20px;
+      display: inline-block;
+      margin-right: 10px;
+    }
   </style>
   <script>
     function toggleConclusion() {
@@ -117,7 +149,7 @@
   </div>
   <div id="section2">
     <h3 style="text-align: center;">Introduction</h3>
-    The mean field dynamo equation
+    The mean field dynamo equation is given by
     <div id="equation1">
       <p style="font-size: 18px; text-align: center;">
         \(\frac{\partial \overline{\boldsymbol{B}}}{\partial t} = \nabla \times (\overline{\boldsymbol{V}} \times \overline{\boldsymbol{B}} + \mathcal{E} - \eta \nabla \times \overline{\boldsymbol{B}})\)
@@ -151,9 +183,25 @@
   </div>
   <div id="section3">
     <h3 style="text-align: center;">Methods and Code</h3>
-    In this simulation a 
-    <p>We place an additional constrain that does not allow the magnetic field to grow over a specific value; in this simulation it is 100 times the seed field. This ensures that we can compare the saturation time for every case we implement. </p>
+    In this simulation we employ 4th order finite differencing for spacial derivatives and 6th order runge kutta for time derivative<a href="#ref1">[1]</a>. We follow the following steps
+    <div class="algorithm">
+      <h3>Algorithm</h3>
+      <ol>
+        <li>Step 1: Start with initialising a grid with choice number of grid points.</li>
+        <li>Step 2: Initialise two lists that will store the variables of magnetic field along r and another along \(\phi\).
+        <li>Step 3: Start at t=0 and increase t till a \(T_{max}\) is aciheved, do the following substeps for each t
+          <ol>
+            <li>Substep A: Calculate the space derivative of B at time t(Used 6th order finite differencing). Calculate the evolution of the magnetic field at time t+1 using the spacial derivatives(Rk6 used).</li>
+            <li>Substep B: Check if norm B has a magnitude lower than the maximum allowe magnetic field. Update magnetic field along r and \(\phi\) only if it is lower.</li>
+            <li>Substep C: Save these in 2 seperate 2d arrays to be used for calculation later.</li>
+          </ol>
+        </li>
+        <li>Step 4: When t=\(T_{max}\) calculate \(\gamma\).</li>
+      </ol>
+    </div>
     
+    An additional constrain of maximum allower magnetic field was introduced to ensure that the dynamo reaches stauration within a finite time which is computationally feasible.
+    <p>By doing this we can compare the time it takes for the dynamo with specific parameters to reach saturation magnetic field and compare then for the same dynamo number.</p>
     <p>Some specific cases that is of particular interest is </p>
     <ol>
       <li>\(\alpha\)=0; this leads to critical dynamo number 0 but it will interesting to see if the dynamo every grows, as \(\Omega\) term which is advecture for \(B_\phi\) still is non zero.</li>
@@ -201,9 +249,9 @@
 </div>
 <div id="section6"><h2>References</h2>
 
-  <p>1. Rajihy, Y., &amp; Mechee, M. 2017, <i>Global Journal of Pure and Applied Mathematics</i>, 13, 2923-2949.</p>
-  <p>2. Fitzpatric, R. (2014), <i>Computational Physics</i>.</p>
-  <p>3. Chamandy, L. 2016, <i>Monthly Notices of the Royal Astronomical Society</i>, 462(4), 4402–4415. </p>
+  <p id="ref1">1. Rajihy, Y., &amp; Mechee, M. 2017, <i>Global Journal of Pure and Applied Mathematics</i>, 13, 2923-2949.</p>
+  <p id="ref2">2. Fitzpatric, R. (2014), <i>Computational Physics</i>.</p>
+  <p id="ref3">3. Chamandy, L. 2016, <i>Monthly Notices of the Royal Astronomical Society</i>, 462(4), 4402–4415. </p>
 <!--Retrieved from <a href="https://academic.oup.com/mnras/article/462/4/4402/2589953">https://academic.oup.com/mnras/article/462/4/4402/2589953</a>-->>
 </div>
 </body>
